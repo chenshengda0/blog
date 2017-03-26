@@ -1,0 +1,86 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">客户管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">添加客户</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+
+      		<div style="height:50px;"></div>
+          
+<form class="form-horizontal" onsubmit="javascript:return false;" style="margin-top: 40px;" role="form">
+  <div class="form-group">
+    <label for="urealname" class="col-sm-2 control-label">国家id：</label>
+    <div class="col-sm-10">
+      <select class="form-control" name="country" id='countryid'  ><!--onchange="javascript:addtasksubmite();"-->
+                      <option value='0'>请选择国家</option>
+                <volist name='country' id='row' key='k'>
+                      <option value='{$key}'>{$row}</option>
+                </volist>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="urealname" class="col-sm-2 control-label">客户姓名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="urealname" placeholder="请输入客户信息">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="uqq" class="col-sm-2 control-label">客户QQ：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="uqq" placeholder="请输入客户QQ">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="utel" class="col-sm-2 control-label">客户电话：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="utel" placeholder="请输入客户电话">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="ucommon" class="col-sm-2 control-label">客户备注：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="ucommon" placeholder="请输入备注">
+    </div>
+  </div>
+
+  
+  <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-2">
+      <button type="submit" class="btn btn-success" onclick="javascript:uadduser();">提交</button>
+      <button type="submit" class="btn btn-success" onclick="javascript:logoutuser();">退出</button>
+    </div>
+  </div>
+</form>
+<p class="text-center" id="uaddmsg">* 请填写详细信息</p>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

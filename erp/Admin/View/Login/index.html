@@ -1,0 +1,34 @@
+<extend name="./Public/html/index.html" />
+
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">首页</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          <div style="height: 0px;"></div>
+      			<script type="text/javascript" src="__JS__/datatime.js"></script>
+      		</div>
+      	</div>
+      </div>    
+</block>

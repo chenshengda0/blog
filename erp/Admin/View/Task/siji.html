@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="am-u-sm-12 am-u-md-9">
+		<label for="sohpindustry">区域:</label>
+      <select id="province" style="width:10%;display:inline">
+  		<option value="">---请选择---</option>
+	  	<foreach name="arealist" item="vo" >
+			<option value="{$vo.id}">{$vo.area_name}</option><!-- area_name是一级菜单 -->
+		</foreach>
+      </select>
+      <select id="city" style="width:10%;display:inline">
+  		<option value="">---请选择---</option>
+      </select>
+      <select id="area" style="width:10%;display:inline">
+  		<option value="">---请选择---</option>
+      </select>
+      <select id="town" style="width:10%;display:inline">
+  		<option value="">---请选择---</option>
+      </select>
+      <input type="hidden" name="areaid" value="" />
+      	<div id="industry-tag" style="width:30%;display:inline">
+      		     <label for="sohpindustry">行业类型:</label>
+      		      <select name="industryID">
+      				<option value="">---请选择---</option>
+      			  	<foreach name="strlist2" item="vo">
+      					<option value="{$vo.id}" ><eq name="vo.id" value="$industryid">selected</eq>{$vo.name}</option>
+      				</foreach>
+      		      </select>
+      		    </div>
+</body>
+</html>
+<script type="text/javascript">
+$("#province").change(function(){
+	getChildArea($(this).val(), $('input[name="putype"]:checked').val(), "#city");
+
+	$("input[name='areaid']").val('');
+	$("#city").empty();
+	$("#area").empty();
+	$("#town").empty();
+	var optionstr = '<option value="">---请选择---</option>';
+	$("#city").append(optionstr);
+	$("#area").append(optionstr);
+	$("#town").append(optionstr);
+});
+
+$("#city").change(function(){
+	getChildArea($(this).val(), $('input[name="putype"]:checked').val(), "#area");
+	$("input[name='areaid']").val('');
+	$("#area").empty();
+	$("#town").empty();
+	var optionstr = '<option value="">---请选择---</option>';
+	$("#area").append(optionstr);
+	$("#town").append(optionstr);
+});
+
+$("#area").change(function(){
+	var parent_id = $(this).val();
+	$.ajax( {
+        url:"{:U('Admin/getchildarea')}",
+        data: {parent_id: parent_id, putype: $('input[name="putype"]:checked').val()},
+        type:'POST',
+        dataType:'json',
+        success:function(data) {
+        	if (data.error == 0) {
+				$("#town").empty();
+				$("#town").append(data.option);
+			} else {
+				$("input[name='areaid']").val(parent_id);
+			}
+        }
+    });
+
+	
+});
+
+$("#town").change(function(){
+	if ($(this).val() != '') {
+		$("input[name='areaid']").val($(this).val());
+	} else {
+		$("input[name='areaid']").val('');
+	}
+});
+
+function getChildArea(parent_id, putype, obj) {
+	if (parent_id) {
+		$.ajax( {
+	        url:"{:U('Admin/getchildarea')}",
+	        data: {parent_id: parent_id, putype: putype},
+	        type:'POST',
+	        dataType:'json',
+	        success:function(data) {
+	        	if (data.error == 0) {
+					$(obj).empty();
+					$(obj).append(data.option);
+				}
+	        }
+	    });
+	}
+}
+// 选择或者反选 checkbox  
+$('#doc-ipt-qx').change(function(){
+	if($('#doc-ipt-qx').prop("checked")){
+		$("input[name='subBox[]']").prop("checked", true);
+	}else{
+		$("input[name='subBox[]']").prop("checked", false);
+	}
+}); 
+//侧边栏样式
+$(function(){
+	$("#collapse-nav-users").addClass("am-in");
+});
+</script>	
+
+	

@@ -1,0 +1,29 @@
+{% extends "common/bootstrap.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+  <form action="" method="post" onsubmit="javascript:return false;">
+    <!-- <div class="form-group">
+            <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+            <div class="input-group">
+              <div class="input-group-addon"><span class="glyphicon glyphicon-comment"></span></div>
+              <input type="text" class="form-control" id="exampleInputAmount" disabled placeholder="mailTo:Test">
+              <div class="input-group-addon" style="width:60%;color：red;">很好的一篇文章...</div>
+            </div>
+      </div> -->
+    <div class="col-xs-10 col-xs-offset-1">
+      <textarea id="demo" style="display: none;" name="text"></textarea>
+    </div>
+    <input type="hidden" id="purl" value="{{ purl }}">
+    <input type="hidden" id="model" value="{{ model }}">
+    <input type="hidden" id="aid" value="{{ aid }}">
+    <input type="hidden" id="uid" value="{{ uid }}">
+    <p class="text-center" id="errormsg"></p>
+    <p class="text-center"><button style="margin-top: 20px;" class="btn btn-success" onclick="javascript:discuss(this)">保存</button></p>
+  </form>
+    
+  </div>
+</div>
+  
+  
+{% endblock %}

@@ -1,0 +1,95 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">店铺管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">店铺列表</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          
+<table class="table table-bordered">
+  <caption>
+<div class="row">
+
+
+  <div class="col-md-5">
+
+    <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        按客户名查询
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+    <volist name="data.user" id="row" key='k'>
+        <li><a href="/Admin/Shop/shopuserlist?u={$key}">{$row.realname}</a></li>
+    </volist>
+    </ul>
+    </div>
+
+
+</div>
+
+<div class="col-md-5 col-md-offset-2">
+  <div class="form-group">
+    <div class="col-sm-10">
+           <input type="text" class="form-control" id="shopkeyword" placeholder="请输入商店名" AUTOCOMPLETE="off">
+           <div id='dropdownlist'>
+           </div>
+    </div>
+  </div>
+</div>
+<form action="/Admin/Shop/shoplist" method="post" id='seachgoodsform'>
+  <input type="hidden" value="" name='autoid' id='seachgoodsid'>
+</form>
+
+  </caption>
+
+
+  <thead>
+    <tr>
+      <th class="text-center">序号</th>
+      <th class="text-center">客户名</th>
+      <th class="text-center">国家名</th>
+      <th class="text-center">店铺名</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<volist name="data.shop.list" id="row" key='k'>
+<tr>
+      <td class="text-center">{$k}</td>
+      <td class="text-center">{$row.customername}</td>
+      <td class="text-center">{$row.countryname}</td>
+      <td class="text-center"><a type='btn btn-xs' href="http://{$row.shopurl}"  target="_blank">{$row.shopname}</a></td>
+      <td class="text-center"><a type="button" class="btn btn-success btn-xs" href="/Admin/Shop/shopupdate?i={$key}">修改店铺</a><button type="button" class="btn btn-danger btn-xs" onclick="javascript:delshop('{$key}');">软删除店铺</button></td>
+</tr>
+</volist>
+  </tbody>
+</table>
+<div class="text-center">{$data.shop.page}</div>
+<div style="height:30px;"></div>
+      		</div>
+      	</div>
+      </div>    
+</block>

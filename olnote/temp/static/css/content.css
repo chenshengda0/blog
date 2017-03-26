@@ -1,0 +1,12 @@
+body{padding-top: 60px;background: #000; }
+.posi{margin-top: 20px;}
+.title{background: #ccc;font-size:10px;text-align: center;color: red;}    
+.date{background: #ddd;font-size:10px;text-align: center;}
+.tag{background: #eee;border-bottom-radius: 10px;}
+.block-list{width: 100%;background: #A200A2;border-bottom-radius: 20px;}
+.tag-hot{height:6px;}
+.guanyu{display: block;height: 180px;background: #5BC0DE;}
+.logo{ height:80px;}
+.nav-button{display: block;background: #5BC0DE;}
+.content-img{border-top-right-radius: 20px;border-top-left-radius: 20px;width:100%;height:180px;}
+#contents{background: #5BC0DE;display:block;}

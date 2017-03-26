@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ERP系统</title>
+<link rel="Shortcut Icon" href="__IMG__/note_1.ico" />
+<link href="__CSS__/login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="login">
+        <div class="loginbox">
+        	<div class="login_top"><a href=""><img src="__IMG__/note_1.ico" alt=""></a></div>
+            <div class="loginmain" >
+                <form action="" onsubmit="javascript:return false;">
+                <div class="loginname">用户名：<input onblur="javascript:users()" id="txt_loginName" type="text" class=""></div>
+                <div class="loginpwd">密 &nbsp;码：<input id="txt_pwd" onblur="javascript:passs()" type="password" class=""></div>
+                <div class="loginyzm">验证码：<input id="txt_yzm" onblur="javascript:codes();" type="text" class=""></div>
+                <div class="yzm"><img src="{:U('Login/codes')}" onClick="javascript:this.src += '?' " title="看不清" /></div>
+                <div class="autobtn">
+                    <div id="autobtn_right" style="color:red;">验证信息</div>
+                </div>
+                <a href="index.html"><input id="btn_login" type="button" onclick="javascript:return false;" value="" class="loginbtn"></a>
+                <input id="btn_reset" type="reset" onclick="javascript:location.reload();" value="" class="resetbtn">
+                </form>
+            </div>
+    </div>
+    <div class="seereals_loading"></div>
+
+
+<div style="text-align:center;">
+<p>来源:<a href="http://www.olnote.net/" target="_blank" style="color:blue;">www.olnote.com</a></p>
+</div>
+<script type="text/javascript" src="__JS__/jquery-3.1.1.min.js"></script>
+<script>
+    function yzma(obj){
+        var s=obj.src;
+        obj.src = s+'?'+Math.random()
+    }
+    function users(){
+        var username=$('#txt_loginName').val().replace(/\s/gi,'');
+        var msg = document.getElementById("autobtn_right");
+        if(/^[a-z,A-Z,0-9,_]{5,9}$/gi.test(username)){
+            msg.style.display='none';
+            return username;
+        }else{
+            msg.style.display='block';
+            msg.style.color='red';
+            msg.style.fontSize=10+'px';
+            msg.innerHTML='用户名只能包括字母、数字、下划线且在5-9位之间。';
+            $('#txt_loginName').focus();
+        }
+    }
+    function passs(){
+      var pass=$.trim($('#txt_pwd').val());
+        var msg = document.getElementById("autobtn_right");
+        if(/[a-z,A-Z]+/gi.test(pass) && pass.length > 5 && pass.length < 16){
+            msg.style.display='none';
+            return pass;
+        }else{
+            msg.style.display='block';
+            msg.style.color='red';
+            msg.style.fontSize=10+'px';
+            msg.innerHTML='密码在6至15位之间,且必须包含英文字母';
+            $('#txt_pwd').focus();
+        } 
+    }
+    function codes(){
+      var codes=$.trim($('#txt_yzm').val());
+        var msg = document.getElementById("autobtn_right");
+        if(/^[a-z,A-Z]{3}$/gi.test(codes)){
+            msg.style.display='none';
+            var username=users();
+            var password=passs();
+            $.post("{:U('Login/login')}",{'username':username,'password':password,'codes':codes},function(data){
+                if(data!=1){
+                    msg.style.display='block';
+                    msg.style.color='red';
+                    msg.style.fontSize=10+'px';
+                    msg.innerHTML=data; 
+                }else{
+                    msg.style.display='block';
+                    msg.style.color='red';
+                    msg.style.fontSize=10+'px';
+                    msg.innerHTML='登陆成功';
+                    window.location="{:U('Admin/Login/index')}";
+                }
+                //console.log(data)
+                      
+            },'text');
+        }else{
+            msg.style.display='block';
+            msg.style.color='red';
+            msg.style.fontSize=10+'px';
+            msg.innerHTML='请点击重置按钮重新输入';
+            $('#txt_yzm').focus();
+        } 
+    }
+</script>
+</body>
+</html>

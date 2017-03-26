@@ -1,0 +1,95 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">商品管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">添加商品</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+
+      		<div style="height:0px;"></div>
+          
+<form class="form-horizontal" id="addgoodsform" onsubmit="javascript:return false;" style="margin-top: 40px;" role="form">
+
+  <div class="form-group">
+    <label for="srealname" class="col-sm-2 control-label">客户名称：</label>
+    <div class="col-sm-10">
+      <select class="form-control" onchange="javascript:addgoodssubmite();" id="goodsusername" name="user">
+      <option value='0'>请选择客户</option>
+      <volist name="data.user" id='row' key='k'>
+        <option value='{$key}'>{$row}</option>
+      </volist>
+    </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="srealname" class="col-sm-2 control-label">店铺名称：</label>
+    <div class="col-sm-10">
+      <select class="form-control" id="goodsshopname"  name="shop">
+      <option value='0'>请选择店铺</option>
+    </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="goodsid" class="col-sm-2 control-label">商品ID：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="goodsid" name='goodsid' placeholder="请输入商品id号">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="srealname" class="col-sm-2 control-label">商品名称：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="srealname" name='goodsname' placeholder="请输入商品名称">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="srealurl" class="col-sm-2 control-label">商品链接：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="srealurl" name="goodsurl" placeholder="请输入商品链接">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="srealcommon" class="col-sm-2 control-label">备注信息：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="srealcommon" name='goodscommon' placeholder="请输入备注信息">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-2">
+      <button type="submit" class="btn btn-success" onclick="javascript:addgoodssubmite();">提交</button>
+      <button type="submit" class="btn btn-success" onclick="javascript:logoutuser();">退出</button>
+    </div>
+  </div>
+</form>
+<p class="text-center" id="goodsaddmsg" style="color:red;">* 商品链接请谨慎填写,可以直接跳转,备注为选填项</p>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

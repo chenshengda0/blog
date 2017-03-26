@@ -1,0 +1,83 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">礼品卡管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">领取礼品卡</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          
+<table class="table table-bordered">
+  <caption>
+<div class="row">
+  <div class="col-md-3 col-md-offset-9">
+  <div class="form-group">
+    <div class="col-sm-10">
+           <input type="text" class="form-control" id="giftkeyword" placeholder="请输入员工名" AUTOCOMPLETE="off">
+           <div id='dropdownlist'>
+           </div>
+    </div>
+  </div>
+</div>
+<form action="/Admin/Gift/giftlist" method="post" id='seachgiftform'>
+  <input type="hidden" value="" name='autoid' id='searchgoodsid'>
+</form>
+</div>
+  </caption>
+
+
+  <thead>
+    <tr>
+      <th class="text-center">序号</th>
+      <th class="text-center">礼品卡号</th>
+      <th class="text-center">礼品卡金额</th>
+      <th class="text-center">领取人</th>
+      <th class="text-center">领取状态</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<volist name="data.list" id="row" key='k'>
+<tr>
+      <td class="text-center">{$k}</td>
+      <td class="text-center" style="color:red;">{$row.giftcard}</td>
+      <td class="text-center">{$row.giftprice}</td>
+      <td class="text-center" style="color:red;">{$row.username}</td>
+      <td class="text-center">{$row.status}</td>
+      <td class="text-center">
+      <if condition="$row['handle'] eq 1">
+      <button type="button" class="btn btn-danger btn-xs" onclick="javascript:handlegift('{$row.autoid}');">领取</button>
+      <else />
+      </if>
+      </td>
+</tr>
+</volist>
+  </tbody>
+</table>
+<div class="text-center">{$data.page}</div>
+<div style="height:30px"></div>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

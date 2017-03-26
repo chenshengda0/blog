@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><!--必须-->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/js/layui/css/layui.css">
+  <link rel="icon" href="/static/img/mayi.ico">
+  <!--[if lt IE 9]>
+      <script src="/static/js/html5shiv.min.js"></script>
+      <script src="/static/js/respond.min.js"></script>
+    <![endif]-->
+  <title>{% block title %}Layer{% endblock %}</title>
+</head>
+<body>
+  {% block content %}
+    
+  {% endblock %}
+  <script src="/static/js/jquery-3.1.1.min.js"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/layer/layer.js"></script>
+  <script src="/static/js/layui/layui.js"></script>
+  <script src="/static/js/drop.js"></script>
+  <script>
+    layui.use('layedit', function(){
+      var layedit = layui.layedit;
+      layedit.build('demo',{
+         height: 120, //设置编辑器高度
+        tool: [
+
+              ,'left' //左对齐
+              ,'center' //居中对齐
+              ,'right' //右对齐
+              ,'|' //分割线
+
+
+              ,'strong' //加粗
+              ,'italic' //斜体
+              ,'underline' //下划线
+              //,'del' //删除线
+              
+              ,'|' //分割线
+              
+
+              //,'link' //超链接
+              //,'unlink' //清除链接
+              ,'face' //表情
+              //,'image' //插入图片
+              //,'help' //帮助
+            ]
+      }); //建立编辑器
+    });
+
+   
+</script>
+</body>
+</html>

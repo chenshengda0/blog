@@ -1,0 +1,84 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">员工管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">员工添加</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+
+      		<div style="height:100px;"></div>
+          
+<form class="form-horizontal" id="adduserforms" onsubmit="javascript:return false;" style="margin-top: 40px;" role="form">
+
+ 
+  <div class="form-group">
+    <label for="addloginname" class="col-sm-2 control-label">登陆名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name="loginname" id="addloginname" placeholder="请输入登陆名">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="addrealname" class="col-sm-2 control-label">真实姓名：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" name='realname' id="addrealname" placeholder="请输入姓名">
+    </div>
+  </div>
+  
+<div class="text-center">
+  <label class="checkbox-inline">
+    <input type="radio" name="authority" value="1" checked>业务组
+  </label>
+  <label class="checkbox-inline">
+    <input type="radio" name="authority" value="2">任务编辑组
+  </label>
+  <label class="checkbox-inline">
+    <input type="radio" name="authority" value="3">管理组
+  </label>
+  <label class="checkbox-inline">
+    <input type="radio" name="authority" value="4">报表组
+  </label>
+  <label class="checkbox-inline">
+    <input type="radio" name="authority" value="5">财务组
+  </label>
+</div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-2">
+      <button type="submit" class="btn btn-success" onclick="javascript:adduser();">提交</button>
+      <button type="submit" class="btn btn-success" onclick="javascript:logoutuser();">退出</button>
+    </div>
+  </div>
+</form>
+<p class="text-center" id="addusermsg">* 默认密码为<span style="color:red;">a12345</span></p>
+<p class="text-center">1.业务组：<span style="color:red;">菜单栏查询权限，接收任务</span></p>
+<p class="text-center">2.任务编辑组：<span style="color:red;">菜单栏编辑权限，发布任务</span></p>
+<p class="text-center">3.管理组：<span style="color:red;">全功能模块（除接收任务）</span></p>
+<p class="text-center">4.报表组：<span style="color:red;">报表权限</span></p>
+<p class="text-center">5.财务组：<span style="color:red;">礼品卡编辑权限</span></p>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

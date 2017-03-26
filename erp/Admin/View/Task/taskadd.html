@@ -1,0 +1,206 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">店铺管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">添加店铺</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+<form class="form-horizontal" id="addtaskform" onsubmit="javascript:return false;" style="margin-top: 40px;" role="form">
+      	<div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="country" class="col-sm-5 control-label">国家id：</label>
+              <div class="col-sm-7">
+                <select class="form-control" id="taskcountry" name="country" >
+                      <option value='0'>请选择国家</option>
+                <volist name='data' id='row' key='k'>
+                      <option value='{$key}'>{$row}</option>
+                </volist>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="user" for="taskuser" class="col-sm-5 control-label">客户id：</label>
+              <div class="col-sm-7">
+                <select class="form-control" id="taskuser" name="user">
+                      <option value='0'>请选择客户</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+      	</div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="shop" class="col-sm-5 control-label">店铺id：</label>
+              <div class="col-sm-7">
+                <select class="form-control" id="taskshop" name="shop">
+                      <option value='0'>请选择店铺</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="goods" class="col-sm-5 control-label">商品id：</label>
+              <div class="col-sm-7">
+                <select class="form-control" id="taskgoods" name="goods">
+                      <option value='0'>请选择商品</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <input type="hidden" value="" id='selectedtask'>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="keyword" class="col-sm-5 control-label">关键词：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="keyword" name='keyword' placeholder="请输入关键词">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="price" class="col-sm-5 control-label">商品价格：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="price" name='price' placeholder="请输入任商品价格">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="tasktype" class="col-sm-5 control-label">任务类型：</label>
+              <div class="col-sm-7">
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="tasktype" value="0" checked> 自发货
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="tasktype" value="1"> FBA
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="iscomment" class="col-sm-5 control-label">是否留评：</label>
+              <div class="col-sm-7">
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="iscomment" value="0" checked> 留评
+                  </label>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="iscomment" value="1"> 不留评
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="starttime" class="col-sm-5 control-label">起始时间：</label>
+              <div class="col-sm-7">
+                <input type="datetime-local" class="form-control" id="starttime" name='starttime' placeholder="请输入任务名">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="totle" class="col-sm-5 control-label">任务总量：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="totle" name='totle' placeholder="请输入任务总量">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="everyday" class="col-sm-5 control-label">每日发布量：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="everyday" name='everyday' placeholder="请输入每日发布任务数">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="comment" class="col-sm-5 control-label">备注信息：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="comment" name='comment' placeholder="请输入备注信息">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-success" onclick="javascript:addtasksubmite();">提交</button>
+            <button type="submit" class="btn btn-success" id="uploadimg">上传图片</button>     
+          </div>
+        </div>
+</form>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="text-center" id="taskaddmsg" style="color:red;">* 备注为选填项</p>
+        </div>
+      </div>
+      </div>    
+</block>

@@ -1,0 +1,87 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">客户管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">客户列表</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          
+<table class="table table-bordered">
+  <caption>
+    <div class="contain">
+      <div class="row">
+          <div class="col-md-5 col-md-offset-7">
+  <div class="form-group">
+    <div class="col-sm-10">
+           <input type="text" class="form-control" id="userkeyword" placeholder="请输入客户名" AUTOCOMPLETE="off">
+           <div id='dropdownlist'>
+           </div>
+    </div>
+  </div>
+<form action="/Admin/User/ulist" method="post" id='seachgoodsform'>
+  <input type="hidden" value="" name='autoid' id='seachgoodsid'>
+</form>
+        </div>
+      </div>
+    </div>
+  </caption>
+  <thead>
+    <tr>
+      <th class="text-center">序号</th>
+      <th class="text-center">客户姓名</th>
+      <th class="text-center">所属国家</th>
+      <th class="text-center">客户QQ</th>
+      <th class="text-center">联系电话</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<volist name="page.list" id="row" key='k'>
+  <tr>
+      <td class="text-center">{$k}</td>
+      <td class="text-center">{$row['realname']}</td>
+      <td class="text-center">{$row.countryid}</td>
+      <td class="text-center">{$row['qq']}</td>
+      <td class="text-center">{$row['tel']}</td>
+      <td class="text-center"><a type="button" class="btn btn-success btn-xs" href="/Admin/User/uupdate?i={$row['autoid']}">客户修改</a><button type="button" class="btn btn-danger btn-xs" onclick="javascript:delus('{$row["autoid"]}');">客户删除</button></td>
+    </tr>
+</volist>
+
+
+  </tbody>
+</table>
+
+<!-- <div>  <span class="current">1</span><a class="num" href="/Admin/User/ulist/p/2.html">2</a><a class="num" href="/Admin/User/ulist/p/3.html">3</a><a class="num" href="/Admin/User/ulist/p/4.html">4</a><a class="num" href="/Admin/User/ulist/p/5.html">5</a><a class="num" href="/Admin/User/ulist/p/6.html">6</a> <a class="next" href="/Admin/User/ulist/p/2.html">>></a> </div> -->
+<div class="text-center">
+  <ul class="pagination">
+    {$page.page}
+</ul>
+</div>
+<div style="height:30px;"></div>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

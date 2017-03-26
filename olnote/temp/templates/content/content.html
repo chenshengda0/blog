@@ -1,0 +1,306 @@
+{% extends 'common/base.html' %}
+{% block nav %}
+	{% for v in title %}
+		 	{% if not v.son %}
+		 		<li class="active"><a href="#">{{ v.name }} <span class="sr-only">(current)</span></a></li>
+		 	{% else %}
+		 		<li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ v.name }} <span class="caret"></span></a>
+				          <ul class="dropdown-menu">
+						{% for k in v.son %}
+				            	<li><a href="{{ k.href }}">{{ k.name }}</a></li>
+					        {% if not forloop.last %}
+					            <li role="separator" class="divider"></li>
+							{% endif %}
+						{% endfor %}
+				          </ul>
+				        </li>
+		    {% endif %}
+        {% endfor %}
+{% endblock %}
+
+{% block login %}
+	{% if login %}
+		<li class="active"><a><span style="color:red;">{{ login.nickname }}</span>，欢迎你！</a></li>
+		<li>
+			<form action="" method="post" >
+				<input type="hidden" name="id" id="id" value="{{ login.id }}">
+				<input type="hidden" name="username" id="username" value="{{ login.username }}">
+				<input type="hidden" name="nickname" id="nickname" value="{{ login.nickname }}">
+				<input type="hidden" name="ip" id="ip" value="{{ login.ip }}">
+			</form>
+		</li>
+        <li><a onclick="javascript:userforgrt(this);">注销</a></li>
+        {% else %}
+        <li><a onclick="javascript:userregister(this);">注册</a></li>
+        <li><a onclick="javascript:userlogin(this);">登陆</a></li>
+ 	{% endif %}
+        
+{% endblock %}
+
+{% block tag %}
+	{% for v in tag %}
+		&nbsp;&nbsp;<span class="glyphicon glyphicon-th"></span>
+		{% for t in v %}
+	            <div class="btn-group" role="group" aria-label="...">
+	              <a type="button" href="{{t.href}}" class="btn btn-default">{{ t.name }}</a>   
+	            </div>
+	            {% if forloop.last %}
+					<br>
+				{% endif %}
+	    {% endfor %}
+	{% endfor %}
+{% endblock %}
+
+{% block article %}
+	{% for art in article_new %}
+	          <p class="">&nbsp;&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<a href="{{ art.0.column }}">{{ art.0.title }}</a></p>
+	{% endfor %}
+{% endblock %}
+
+{% block tuijian %}
+    {% for art in article_two %}
+	          <p class="">&nbsp;&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<a href="{{ art.0.column }}">{{ art.0.title }}</a></p>
+	{% endfor %}
+{% endblock %}
+
+{% block link %}
+	{% for i in link %}
+          <a href="{{ i.href }}" target="_blank">{{ i.name }}</a>
+	{% endfor %}
+{% endblock %}
+
+{% block breadcrumb %}
+	{% for i in main %}
+            <li><a href="{{ i.href }}">{{ i.name }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block navtag %}
+{% for i in tag_list %}
+  <a type="button" href="{{ i.1.2 }}" class="btn btn-default">{{ i.1.1 }}</a>
+ {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+{% for value in content %}
+ <div class="row">
+	            	<div class="col-md-12">
+	            		<h1 class="text-center" style="color: #A200A2;">{{ value.title }}</h1>
+	            		<p class="text-center"><span style="color:#000;">标签：</span>
+		            		{% for i in tag_list %}
+								<a href="{{ i.1.2 }}">{{ i.1.1 }}</a>
+								{% if not forloop.last %}
+								&nbsp;|
+								{% endif %}
+	 						{% endfor %}
+ 						</p>
+	            		<p class="text-center"><span style="color:#000;">发布人：</span>admin</p>
+	            		
+	            		<p class="text-center"><span style="color:#000;">发布时间：</span>{{ value.pub_date }}</p>
+	            	</div>
+	        {% if value.tag_state != 'video' %}
+	            	<div class="col-md-4 col-md-offset-4">
+							<div id="myCarousel" class="carousel slide">
+							<!-- 轮播（Carousel）指标 -->
+							{% if value.img|length == 1 %}
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0"></li>
+							</ol>
+							{% endif %}
+							{% if value.img|length == 2 %}
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+							</ol>
+							{% endif %}
+							{% if value.img|length == 3 %}
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+							</ol>
+							{% endif %}
+							{% if value.img|length == 4 %}
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+								<li data-target="#myCarousel" data-slide-to="3"></li>
+							</ol>
+							{% endif %}
+							{% if value.img|length == 5 %}
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+								<li data-target="#myCarousel" data-slide-to="3"></li>
+								<li data-target="#myCarousel" data-slide-to="4"></li>
+							</ol>
+							{% endif %}
+							{% if value.img|length == 6 %}
+							<ol class="carousel-indicators">
+								<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+								<li data-target="#myCarousel" data-slide-to="1"></li>
+								<li data-target="#myCarousel" data-slide-to="2"></li>
+								<li data-target="#myCarousel" data-slide-to="3"></li>
+								<li data-target="#myCarousel" data-slide-to="4"></li>
+								<li data-target="#myCarousel" data-slide-to="5"></li>
+							</ol>
+							{% endif %}   
+							<!-- 轮播（Carousel）项目 -->
+							<div class="carousel-inner">
+							{% for i in value.img %}
+								{% if forloop.first %}
+									<div class="item active">
+										<img src="{{ i.name }}" class="img-responsive img-circle" style="width:100%;height:250px;">
+										<div class="carousel-caption"></div>
+									</div>
+								{% else %}
+									<div class="item">
+										<img src="{{ i.name }}" class="img-responsive img-circle" style="width:100%;height:250px;">
+										<div class="carousel-caption"></div>
+									</div>
+								{% endif %}
+							{% endfor %}
+							</div>
+							<!-- 轮播（Carousel）导航 -->
+							<a class="carousel-control left" data-slide="prev" href="#myCarousel" 
+							   data-slide="prev">&lsaquo;</a>
+							<a class="carousel-control right"  data-slide="next" href="#myCarousel" 
+							   data-slide="next">&rsaquo;</a>
+						</div>
+						
+	            	</div>
+	        {% endif %}
+{% if value.tag_state == 'text' %}
+	            	<div class="col-md-10 col-md-offset-1">
+							{{ value.content|safe }}
+					</div>
+{% endif %}
+{% if value.tag_state == 'music' %}
+<div class="col-md-4 col-md-offset-4">
+	            		<audio controls style="width:100%;">
+						  <source src="{{ value.link }}" type="audio/mpeg">
+						  <!-- <source src="horse.ogg" type="audio/ogg"> -->
+						  <embed height="50" width="80" src="{{ value.link }}">
+						</audio>
+	            	</div>
+
+	            	<div class="col-md-6 col-md-offset-3">
+	            		{{ value.content|safe }}
+	            	</div>
+{% endif %}
+{% if value.tag_state == 'video' %}
+	            	<div class="col-md-6 col-md-offset-3">
+	            		<video style="width:100%;height:300px;" controls>
+						  <source src="{{ value.link }}" type="video/mp4">
+						  <!-- <source src="movie.ogg" type="video/ogg">
+						  <source src="movie.webm" type="video/webm"> -->
+						  <object data="movie.mp4" style="width:100%;height:300px;">
+						    <embed src="movie.swf" style="width:100%;height:300px;">
+						  </object> 
+						</video>
+	            	</div>
+{% endif %}
+</div>
+<div class="row">
+<div class="col-md-12">
+<p class="text-center" style="margin-top: 20px;">
+	<button class="btn btn-success btn-lg" onclick="javascript:comment(this);">留言板</button>
+</p>
+</div>
+</div>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+
+	{% if comment == "暂无评论" %}
+	<div style="width:100%;height:100px;background: #ccc;border-radius:10px;margin-top: 10px;">
+			<div class="row">
+				<div class="col-md-2" style="background: #bbb;">
+					<div style="width:100%;height:100px;">
+						<img src="/static/img/logo1.png" style="width:100%;height:100px;border-radius: 20px;" alt="">
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div style="width:100%;height:90px;margin-top:5px;background: #bbb;">
+						还没有评论哦！
+					</div>
+				</div>
+				<div class="col-md-3" style="background: #bbb;">
+					<div style="height:100px;">
+						<p class="text-center" style="font-size: 20px;color:red;font-weight: 700;">管理员</p>
+						<p class="text-center">2016.01.21</p>
+						<p class="text-center">
+						</p>
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+	
+{% else %}
+{% for values in comment %}
+ 
+		<div style="width:100%;height:100px;background: #ccc;border-radius:10px;margin-top: 10px;">
+			<div class="row">
+				<div class="col-md-2" style="background: #bbb;">
+					<div style="width:100%;height:100px;">
+						<img src="{{ values.username.img }}" style="width:100%;height:100px;border-radius: 20px;" alt="">
+					</div>
+				</div>
+				<div class="col-md-7">
+					{% if values.mailto %}
+					<div style="width:100%;height:90px;margin-top:5px;background: pink;">
+						回复<span style="color:red;">{{ values.mailto.username.nickname }}</span><span style="color:green;">{{ values.mailto.pub_date }}</span>的评论:<br>{{ values.content|safe }}
+					</div>	
+					{% endif %}
+					{% if values.href %}
+					<div style="width:100%;height:90px;margin-top:5px;background: #ddd;">
+						引用<span style="color:red;">{{ values.href.username.nickname }}</span><span style="color:green;">{{ values.href.pub_date }}</span>的评论:<br><span style="color:blue">{{ values.href.content|safe }}</span>{{ values.content|safe }}
+					</div>
+					{% endif %}
+					{% if not values.mailto and not values.href %}
+					<div style="width:100%;height:90px;margin-top:5px;background: #bbb;">
+						{{ values.content|safe }}
+					</div>
+					{% endif %}
+					
+				</div>
+				<div class="col-md-3" style="background: #bbb;">
+					<div style="height:100px;">
+						<p class="text-center" style="font-size: 20px;color:red;font-weight: 700;">{{ values.username.nickname }}</p>
+						<p class="text-center">{{ values.pub_date }}</p>
+						
+						<form action="" onsubmit="javascript:return false">
+							<input type="hidden" value="{{ values.id }}">
+							<input type="hidden" value="{{ values.username.id }}">
+						<p class="text-center">
+							<button onclick="comment(this,'mailto',{{ values.id }})">回复</button>
+							<button onclick="comment(this,'href',{{ values.id }})">引用</button>
+						</p>
+						</form>	
+						
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+{% endfor %}
+{% endif %}
+
+
+		
+
+	</div>
+</div>
+
+
+
+
+            
+{% endfor %}
+{% endblock %}

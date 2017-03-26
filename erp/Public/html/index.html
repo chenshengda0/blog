@@ -1,0 +1,797 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ERP系统</title>
+<link rel="Shortcut Icon" href="__IMG__/note_1.ico" />
+<link type="text/css" rel="stylesheet" href="__CSS__/style.css" />
+<link type="text/css" rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+<script type="text/javascript" src="__JS__/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="__JS__/bootstrap.min.js"></script>
+<script type="text/javascript" src="__JS__/menu.js"></script>
+<script type="text/javascript" src="__JS__/layer/layer.js"></script>
+</head>
+
+<body>
+<div class="top"></div>
+<div id="header">
+	<div class="logo">ERP SYSTEM</div>
+	<div class="navigation">
+		<ul>
+		 	<li>欢迎您！</li>
+			<li><a href="" style="color:yellow;">{$_SESSION[md5('admin')]['realname']}</a></li>
+
+  <li><a href="/Admin/Public/pass?i={$_SESSION[md5('admin')]['autoid']}">修改密码</a></li>
+	<li><a href="{:U('Public/logout')}">注销</a></li>
+		</ul>
+	</div>
+</div>
+<div id="content">
+	<div class="left_menu">
+				<ul id="nav_dot">
+<block name='adminnav'>
+      
+</block>
+
+  </ul>
+
+		</div>
+		<div class="m-right">
+			<div class="right-nav">
+
+        <block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">系统公告</a></li>
+                <li>></li>
+                <li><a href="#">最新公告</a></li>
+            </ul>
+        </block>  
+					
+			</div>
+			<div class="main">
+				<block name='neirong'>
+          
+        </block>
+			</div>
+		</div>
+</div>
+<div class="bottom"></div>
+<div id="footer"><p>Copyright©  2016 版权所有 粤ICP备16100395号  来源:<a href="http://www.olnote.com/" target="_blank" style="color:blue;">www.olnote.com</a></p></div>
+<script>
+navList(12);
+$(function(){
+  $("#keyword").keyup(function (e) {
+          var content=this.value.replace(/\s+/g, "");
+          //return console.log(content);
+          var webaddr="/Admin/Goods/goodsseach";
+          var jsondata={'content':content};
+          var obj=document.getElementById("dropdownlist");
+          if(content.length >= 1)
+          ajaxseach(webaddr,jsondata,obj);
+          else return false;
+     })
+
+  $("#shopkeyword").keyup(function (e) {
+    //alert(1);
+          var content=this.value.replace(/\s+/g, "");
+          //return console.log(content);
+          var webaddr="/Admin/Shop/shopseach";
+          var jsondata={'content':content};
+          var obj=document.getElementById("dropdownlist");
+          if(content.length >= 1)
+          ajaxseach(webaddr,jsondata,obj);
+          else return false;
+     })
+
+  $("#userkeyword").keyup(function (e) {
+    //alert(1);
+          var content=this.value.replace(/\s+/g, "");
+          //return console.log(content);
+          var webaddr="/Admin/User/userseach";
+          var jsondata={'content':content};
+          var obj=document.getElementById("dropdownlist");
+          if(content.length >= 1)
+          ajaxseach(webaddr,jsondata,obj);
+          else return false;
+     })
+
+  $('#taskgoodskeyword').keyup(function(event) {
+    var content = this.value.replace(/\s+/g,'');
+
+    var webaddr="/Admin/Task/searchtask";
+    var jsondata={'content':content};
+    var obj=document.getElementById('dropdownlist');
+    if(content.length >= 1) ajaxseach(webaddr,jsondata,obj);
+    else return false;
+  });
+
+  $('#oneselfkeyword').keyup(function(event) {
+    var content = this.value.replace(/\s+/g,'');
+    //return alert(content);
+    var webaddr="/Admin/Oneself/searchoneself";
+    var jsondata={'content':content};
+    var obj=document.getElementById('dropdownlist');
+    if(content.length >= 1) ajaxseach(webaddr,jsondata,obj);
+    else return false;
+  });
+
+  $('#giftkeyword').keyup(function(event) {
+    var content = this.value.replace(/\s+/g,'');
+    //return alert(content);
+    var webaddr="/Admin/Gift/searchgift";
+    var jsondata={'content':content};
+    var obj=document.getElementById('dropdownlist');
+    if(content.length >= 1) ajaxseach(webaddr,jsondata,obj);
+    else return false;
+  });
+
+})
+
+function ajaxseach(webaddr,jsondata,obj){
+  
+
+  $.post(webaddr,jsondata,function(data){
+//return console.log(data);
+    obj.style.display='block';
+    $(obj).empty();
+    $(obj).append(data);
+  },'text');
+}
+
+function selectgiftdata(obj,$id){
+  var content = obj.innerHTML;
+  $("#giftkeyword").val(content);
+  $('#searchgoodsid').val($id);
+  document.getElementById('dropdownlist').style.display='none'; 
+  //return alert(1);
+  $('#seachgiftform').submit();
+}
+
+function selectoneselfdata(obj,$id){
+  var content = obj.innerHTML;
+  $("#oneselfkeyword").val(content);
+  $('#searchgoodsid').val($id);
+  document.getElementById('dropdownlist').style.display='none';
+  $('#seachoneselfform').submit();
+}
+
+function selecttaskdata(obj,$id){
+  var content = obj.innerHTML;
+  $("#taskgoodskeyword").val(content);
+  $('#searchgoodsid').val($id);
+  document.getElementById('dropdownlist').style.display='none';
+  $('#searchtaskform').submit();
+}
+
+function selectuserdata(obj,$id){
+  var content = obj.innerHTML;
+  $("#userkeyword").val(content);
+  $('#seachgoodsid').val($id);
+  document.getElementById('dropdownlist').style.display='none';
+  $('#seachgoodsform').submit();
+}
+
+function selectshopdata(obj,$id){
+  var content = obj.innerHTML;
+  $("#shopkeyword").val(content);
+  $('#seachgoodsid').val($id);
+  document.getElementById('dropdownlist').style.display='none';
+  $('#seachgoodsform').submit();
+}
+
+function selectdata(obj,$id){
+  var content = obj.innerHTML;
+  $("#keyword").val(content);
+  $('#seachgoodsid').val($id);
+  document.getElementById('dropdownlist').style.display='none';
+  $('#seachgoodsform').submit();
+}
+
+
+
+function handlegift($id){
+  $.post("{:U('Gift/giftlist')}",{'autoid':$id},function(data){
+    if(data==1) location.href="?";
+    else console.log(data);
+  },'text');
+}
+function addgiftcard(){
+  var msg =document.getElementById('addcardmsg');
+  $.post("{:U('Gift/giftadd')}",$('#giftcardform').serialize(),function(data){
+    if(data=='') location.href='/Admin/Gift/giftlist';
+    else msg.innerHTML=data;
+  },'text');
+}
+
+$(function(){
+  $('#selectnumber').change(function(event) {
+    var num=this.value;
+    $.post("{:U('Oneself/batch')}",{'num':num},function(data){
+      location.href='/Admin/Oneself/accept';
+    },'text');
+  });
+  /*var number=$('#selectnumber').val();
+  return console.log(number);*/
+});
+
+function oneselfnumber(id){
+  $.post("{:U('Oneself/tasktotle')}",{'autoid':id},function(data){
+    if(data==1) location.href='?';
+    else if(data==0) location.href='/Home/Login/login';
+    else layer.msg(data, {time: 2000,});
+  },'text');
+}
+
+function addoneselfsubmite(){
+  var msg=document.getElementById('oneselfsubmit');
+  $.post('{:U("Oneself/submit")}',$('#addoneselfform').serialize(),function(data){
+    //console.log(data);
+    if(data==1) location.href='/Admin/Oneself/done';
+    else msg.innerHTML=data;
+  },'text');
+  
+}
+
+function logoutuser(){
+          location.href = "{:U('Public/index')}";
+        }
+
+function sadduser(){
+          var countryname=$('#srealname').val().replace(/\s/gi,'');
+          var msg=document.getElementById('uaddmsg');
+          if(countryname.length<=20 && countryname.length>=2){
+            $.post('{:U("State/sadd")}',{'countryname':countryname},function(data){
+              if(data==1){
+                location.href="{:U('State/slist')}";
+              }else{
+                msg.innerHTML=data;
+              }
+            },'text');
+          }else{
+            msg.innerHTML="国家名称长度在2-20字";
+          }
+        }
+
+function delcountry(id){
+          layer.confirm("您确定要删除此记录么?", {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+              $.post("{:U('State/delcountry')}",{'id':id},function(data){
+                //console.log(data);return 1;
+                if(data==1){
+                  layer.closeAll();
+                  location.href = "{:U('State/slist')}";
+                }else if(data==0){
+                  layer.msg('数据删除出错', {
+                    time: 2000, //2s后自动关闭
+                  });
+                }else{
+                  layer.msg('您没有权限访问', {
+                    time: 2000, //2s后自动关闭
+                  });
+                }
+                  
+              },'text')
+            }, function(){
+              layer.msg('请谨慎操作', {
+                time: 2000, //2s后自动关闭
+              });
+            })
+        }
+
+function countryupuser(){
+  var autoid=$('#countryid').val();
+ // alert(autoid);return 1;
+  var countryname=$('#srealname').val().replace(/\s/gi,'');
+  var msg=document.getElementById('saddmsg');
+  if(countryname.length<=20 && countryname.length>=2){
+            $.post('{:U("State/countryupdate")}',{'countryname':countryname,'autoid':autoid},function(data){
+              if(data==1){
+                location.href="{:U('State/slist')}";
+              }else{
+                msg.innerHTML=data;
+                window.setInterval(function(){
+                  location.href="{:U('State/slist')}";
+                }, 2000)
+              }
+            },'text');
+          }else{
+            msg.innerHTML="国家名称长度在2-20字";
+          }
+}
+function sumuser(){
+          var loginpass1 = $("#loginpass1").val().replace(/\s/gi,'');
+          var loginpass2 = $("#loginpass2").val().replace(/\s/gi,'');
+          var realname = $("#realname").val().replace(/\s/gi,'');
+          var telnumber = $("#telnumber").val().replace(/\s/gi,'');
+          var commons = $("#commons").val().replace(/\s/gi,'') ? $("#commons").val().replace(/\s/gi,'') : '暂无备注信息';
+          var usermsg = document.getElementById('usermsg');
+          //alert(usermsg.innerHTML);
+          if(loginpass1 != loginpass2) {
+            usermsg.innerHTML = '两次输入的密码不一致';
+            return false;
+            
+          }else if(!(/[a-z,A-Z,_]+/gi.test(loginpass2) && loginpass2.length >= 6 && loginpass2.length  <= 15)){
+            usermsg.innerHTML = '密码必须包含至少一位英文字母或下划线';
+            return false;
+          }else if(!(/^[\u4e00-\u9fa5]+$/gi.test(realname) && realname.length >= 2)){
+            usermsg.innerHTML = '真实姓名必须为中文，且不小于两位';
+            return false;
+          }else if(!(/^1{1}[0-9]+$/.test(telnumber) && telnumber.length == 11)){
+            usermsg.innerHTML='手机号码必须为11位纯数字';
+          }else{
+            $.post("{:U('Public/updateuser')}",{'loginpass':loginpass2,'realname':realname,'tel':telnumber,'commons':commons},function(data){
+                if(data==1){
+                  location.href = "{:U('Home/Login/index')}";
+                }else{
+                  usermsg.innerHTML=data;
+                }
+            },'text');
+          }
+          return false;
+
+        }
+
+        function adduser(){
+        	//return alert(1);
+           var loginname = $('#addloginname').val().replace(/\s/gi,'');
+           var realname = $("#addrealname").val().replace(/\s/gi,'');
+           var usermsg = document.getElementById('addusermsg');
+           //console.log(loginname);return 1;
+           if( !(/^[a-z,A-Z,_]+$/gi.test(loginname) && loginname.length>=5 && loginname.length<=9)){
+           // alert(1);
+            usermsg.innerHTML = '用户名只能包含字母和下划线，且在5-9位之间';
+            return false;
+          }else if(!(/^[\u4e00-\u9fa5]+$/gi.test(realname) && realname.length >= 2)){
+            usermsg.innerHTML = '真实姓名必须为中文，且不小于两位';
+            return false;
+          }else{
+            $.post('{:U("Staff/sadd")}',$('#adduserforms').serialize(),function(data){
+                if(data==1){
+                  location.href = "{:U('Staff/slist')}";
+                }else{
+                  usermsg.innerHTML=data;
+                }
+            },'text');
+          }
+          return false;
+        }
+
+        function uadduser(){
+          var countryid = $('#countryid').val();
+         //return  console.log(countryid);
+           var qq = $('#uqq').val().replace(/\s/gi,'');
+           var realname = $.trim($("#urealname").val());
+           var tel = $("#utel").val().replace(/\s/gi,'');
+           var common = $("#ucommon").val().replace(/\s/gi,'') ? $("#ucommon").val().replace(/\s/gi,'') : '暂无备注信息';
+           var umsg = document.getElementById('uaddmsg');
+           //console.log(qq,realname,tel,common);return 1;
+           if(countryid==0){
+              umsg.style.color='red';
+              umsg.innerHTML='请先选择国家';
+           }else if(realname.length<=2 || realname.length >= 20){
+              umsg.style.color='red';
+              umsg.innerHTML='姓名长度必须在2-20位之间';
+           }else if (!(/^\d+$/gi.test(tel) && tel.length == 11)) {
+              umsg.style.color='red';
+              umsg.innerHTML='电话号码必须填写纯数字，长度为11位';
+           }else if (!(/^\d+$/gi.test(qq) && qq.length >= 5 && qq.length <= 15)) {
+              umsg.style.color='red';
+              umsg.innerHTML='QQ号必须填写纯数字，长度在5-15位';
+           }else{
+              $.post("{:U('User/uadd')}",{'countryid':countryid,'qq':qq,'realname':realname,'tel':tel,'common':common},function(data){
+                  if(data==1){
+                    location.href = "{:U('User/ulist')}";
+                  }else{
+                    umsg.style.color='red';
+                    umsg.innerHTML=data;
+                  }
+              },'text');
+           }
+        }
+
+        
+
+        function uupuser(){
+          var countryid=$('#countryid').val();
+           var qq = $('#uqq').val().replace(/\s/gi,'');
+           var id = $('#uid').val();
+           var realname = $.trim($("#urealname").val());
+           var tel = $("#utel").val().replace(/\s/gi,'');
+           var common = $("#ucommon").val().replace(/\s/gi,'') ? $("#ucommon").val().replace(/\s/gi,'') : '暂无备注信息';
+           var umsg = document.getElementById('uaddmsg');
+           //console.log(qq,realname,tel,common);
+           if(countryid == 0){
+              umsg.style.color='red';
+              umsg.innerHTML='国家为必选项';
+           }else if(realname.length<=2 || realname.length >= 20){
+              umsg.style.color='red';
+              umsg.innerHTML='姓名长度必须在2-20位之间';
+           }else if (!(/^\d+$/gi.test(tel) && tel.length == 11)) {
+              umsg.style.color='red';
+              umsg.innerHTML='电话号码必须填写纯数字，长度为11位';
+           }else if (!(/^\d+$/gi.test(qq) && qq.length >= 5 && qq.length <= 15)) {
+              umsg.style.color='red';
+              umsg.innerHTML='QQ号必须填写纯数字，长度在5-15位';
+           }else{
+              $.post("{:U('User/uupdate')}",{'qq':qq,'countryid':countryid,'autoid':id,'realname':realname,'tel':tel,'common':common},function(data){
+                  if(data==1){
+                    location.href = "{:U('User/ulist')}";
+                  }else if (data=='未修改任何数据') {
+                    location.href = "{:U('User/ulist')}";
+                  }else{
+                    umsg.style.color='red';
+                    umsg.innerHTML=data;
+                  }
+              },'text');
+           }
+        }
+
+        function delus(id){
+          layer.confirm("您确定要删除此记录么?", {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+              $.post("{:U('User/deluser')}",{'id':id},function(data){
+                if(data==1){
+                  layer.closeAll();
+                  location.href = "{:U('User/ulist')}";
+                }else if (data==0) {
+                  layer.msg('数据删除出错', {
+                time: 2000, //2s后自动关闭
+                 });
+                }else{
+                  layer.msg('您没有权限访问', {
+                time: 2000, //2s后自动关闭
+                 });
+                }
+              },'text')
+            }, function(){
+              layer.msg('请谨慎操作', {
+                time: 2000, //2s后自动关闭
+              });
+            })
+        }
+
+        
+
+        function delstaff(obj,id,name,ids){
+          //console.log(name);
+          if(id==ids){
+            layer.msg('不能删除您自己的账号', {
+                time: 2000, //2s后自动关闭
+              });
+          }else{
+            layer.confirm("您确定要删除"+name+"么?", {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+              $.post("{:U('Staff/delstaff')}",{'id':id},function(data){
+                if(data==1){
+                  layer.closeAll();
+                  location.href = "{:U('Staff/slist')}";
+                }else{
+                  layer.msg('您没有权限访问', {
+                time: 2000, //2s后自动关闭
+              });
+                }
+              },'text')
+            }, function(){
+              layer.msg('请谨慎操作', {
+                time: 2000, //2s后自动关闭
+              });
+            })
+          }
+          
+        }
+$(function(){
+  $('#countryname').change(function(){
+     addshopsubmite();
+  })
+});
+function addshopsubmite(){
+        var msg=document.getElementById('shopaddmsg');
+        var shopname=$("#shopname").val();
+        var country=$("#countryname").val();
+            if(country==0 && shopname==''){
+              msg.innerHTML='请先选择国家。';
+            }else{
+              if(country != 0 && shopname==''){
+                 $.post("{:U('Shop/shopadd')}",$('#addshopform').serialize(),function(data){
+                    setshopuser(eval(data));
+                  },'json');
+               }else if(shopname!=''){
+                  $.post("{:U('Shop/shopadd')}",$('#addshopform').serialize(),function(d){
+                  if(d==1){
+                    location.href="{:U('Shop/shoplist')}";
+                  }else{
+                    msg.innerHTML=d;
+                  }
+               },'text');
+}}}
+
+       function setshopuser(jsonData){
+           var jsonLength = 0;
+           $("#shopusername").empty();//清空
+            for(var item in jsonData){
+              if(jsonData[item]){
+                $('#shopusername').append("<option value='"+item+"'>"+jsonData[item]+"</option>");
+                jsonLength++;
+
+              }else{
+                $('#shopusername').append("<option value='"+item+"'>"+暂无选项+"</option>");
+              }
+                
+                            }
+            return jsonLength;      
+      }
+
+$(function(){
+  $('#goodscountryname').change(function(event) {
+    addgoodssubmite();
+  });
+  /*alert(document.getElementById('twonav').value);*/
+}); 
+       function addgoodssubmite(){
+        var msg=document.getElementById('goodsaddmsg');//信息框
+        var goodsid=$('#goodsid').val();
+        var goodsusername=$('#goodsusername').val();
+        if(!goodsid){
+          if(goodsusername==0){       
+            msg.innerHTML='请先选择客户';
+          }else{
+              $.post("{:U('Goods/goodsadd')}",$('#addgoodsform').serialize(),function(data){
+                //return console.log(data);
+                setselectgoods(data);
+              },'json');  
+            }//endelse
+          }else{
+          $.post("{:U('Goods/goodsadd')}",$('#addgoodsform').serialize(),function(data){
+                //return console.log(data);
+                if(data==1){
+                  location.href="{:U('Goods/goodslist')}";
+                }else if(data==0){
+                  msg.innerHTML='数据添加错误';
+                }else{
+                  msg.innerHTML=data;
+                }
+              },'text');
+}}
+
+      function setselectgoods(jsonData){
+           var jsonLength = 0;
+           $("#goodsshopname").empty();//清空
+           $('#goodsshopname').append("<option value='0'>请选择客户</option>");
+            for(var item in jsonData.shop){
+              
+                $('#goodsshopname').append("<option value='"+item+"'>"+jsonData.shop[item]+"</option>");
+                jsonLength++;
+            }
+            
+            return jsonLength;      
+      }
+
+       function addtasksubmite(){
+        var msg=document.getElementById('taskaddmsg');
+        document.getElementById('imgupdate').onsubmit();
+        alert(1);
+        $.post("{:U('Task/taskadd')}",$('#addtaskform').serialize(),function(data){
+          if(data==1){
+            location.href="{:U('Goods/goodslist')}";
+          }else{
+            msg.innerHTML=data;
+          }
+          //console.log(data);
+        },'text');       
+       }
+
+       function updategoodssubmite(){
+        var msg=document.getElementById('goodsupdatemsg');
+        $.post("{:U('Goods/goodsupdate')}",$('#addgoodsform').serialize(),function(data){
+          if(data==1){
+            location.href="{:U('Goods/goodslist')}";
+          }else{
+            msg.innerHTML=data;
+          }
+        },'text');       
+       }
+
+
+       function updateshopsubmite(){
+          var msg=document.getElementById('shopaddmsg');
+        $.post("{:U('Shop/shopupdate')}",$('#addshopform').serialize(),function(data){
+          if(data==1){
+            location.href="{:U('Shop/shoplist')}";
+          }else{
+            msg.innerHTML=data;
+          }
+          //console.log(data);
+        },'text');
+       }
+
+       function deltask(autoid){
+          layer.confirm("您确定要删除此记录么?", {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+              $.post("{:U('Task/taskdelete')}",{'id':autoid},function(data){
+                if(data==1){
+                  layer.closeAll();
+                  location.href = "{:U('Task/tasklist')}";
+                }else if (data==0) {
+                  layer.msg('数据删除出错', {
+                    time: 2000, //2s后自动关闭
+                  });
+                }else{
+                  layer.msg(data, {
+                    time: 2000, //2s后自动关闭
+                  });
+                }
+                console.log(data);
+              },'text')
+            }, function(){
+              layer.msg('请谨慎操作', {
+                time: 2000, //2s后自动关闭
+              });
+            })
+       }
+
+       function delgoods(shopid){
+          layer.confirm("您确定要删除此商品么?", {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+              $.post("{:U('Goods/goodsdelete')}",{'id':shopid},function(data){
+                if(data==1){
+                  layer.closeAll();
+                  location.href = "{:U('Goods/goodslist')}";
+                }else if (data==0) {
+                  layer.msg('数据删除出错', {
+                    time: 2000, //2s后自动关闭
+                  });
+                }else{
+                  layer.msg('您没有权限访问', {
+                    time: 2000, //2s后自动关闭
+                  });
+                }
+                //console.log(data);
+              },'text')
+            }, function(){
+              layer.msg('请谨慎操作', {
+                time: 2000, //2s后自动关闭
+              });
+            })
+       }
+
+       function delshop(shopid){
+          layer.confirm("您确定要删除此店铺么?", {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+              $.post("{:U('Shop/shopdelete')}",{'id':shopid},function(data){
+                if(data==1){
+                  layer.closeAll();
+                  location.href = "{:U('Shop/shoplist')}";
+                }else if(data==0){
+                  layer.msg('数据删除出错', {
+                    time: 2000, //2s后自动关闭
+                  });
+                }else{
+                  layer.msg("您没有权限访问", {
+                    time: 2000, //2s后自动关闭
+                  });
+                }
+                //console.log(data);
+              },'text')
+            }, function(){
+              layer.msg('请谨慎操作', {
+                time: 2000, //2s后自动关闭
+              });
+            })
+       }
+
+       function addtasksubmite(){
+          var msg=document.getElementById('taskaddmsg');
+          $.post("{:U('Task/taskadd')}",$('#addtaskform').serialize(),function(data){
+            //console.log(data);
+            if(!isNaN(data)){
+              msg.innerHTML='数据添加完成，请点击上传图片按钮上传一张图片';//location.href="{:U('Task/tasklist')}";
+              $('#uploadimg').click(function(event) {
+                uploadimg(data);
+              });
+            }else  msg.innerHTML=data;
+          },'text');
+       }
+
+       function uploadimg(data){
+        //alert(data);
+        layer.open({
+          type: 2,
+          skin: 'layui-layer-lan', //样式类名
+          title: '图片上传',
+          closeBtn: 1, //不显示关闭按钮
+          anim: 5,
+          area:['300px','280px'],
+          shadeClose: true, //开启遮罩关闭
+          content: '/Admin/Task/taskimg?i='+data
+        });
+          
+       }
+
+
+       function getJsonLength(jsonData){
+           var jsonLength = 0;
+           $("#taskuser").empty();//清空
+            for(var item in jsonData){
+                $('#taskuser').append("<option value='"+item+"'>"+jsonData[item]+"</option>");jsonData[item];
+                jsonLength++;
+            }
+            return jsonLength;      
+      }
+
+      function taskjson(){
+         $.post("{:U('Task/taskadd')}",$('#addtaskform').serialize(),function(data){
+           getJsonLength(eval(data));//eval()函数是将json字符串转换成js对象
+          },'json')
+      }
+
+//1.taskcountry 绑定onchange事件 ajax请求下一层数据 层数是一 
+$(function(){
+  //一级
+  $("#taskcountry").change(function(){
+      if(this.value>0) ajaxquery(this.value,'客户','#taskuser');
+      //返回值$("#taskuser")
+  });
+  //二级
+  $('#taskuser').change(function(){
+    if(this.value>0) ajaxquery(this.value,'商店','#taskshop');
+  });
+  //三级
+  $("#taskshop").change(function(){
+    //alert(this.value);
+    if(this.value>0) ajaxquery(this.value,'商品','#taskgoods');
+  });
+});
+function ajaxquery(val,level,obj){
+  $.post("{:U('Task/taskadd')}",{'val':val,'level':level},function(data){
+    if(data){
+      //return console.log(data);
+      $(obj).empty();
+      $(obj).append(data);
+    }
+  },'json');
+}
+
+
+$(function(){
+  //一级
+  $("#taskcountrys").change(function(){
+      if(this.value>0) ajaxquery(this.value,'客户','#taskusers');
+      //返回值$("#taskuser")
+  });
+  //二级
+  $('#taskusers').change(function(){
+    if(this.value>0) ajaxquery(this.value,'商店','#taskshops');
+  });
+  //三级
+  $("#taskshops").change(function(){
+    //alert(this.value);
+    if(this.value>0) ajaxquery(this.value,'商品','#taskgoodss');
+  });
+  $("#taskgoodss").change(function(){
+      location.href='/Admin/Task/taskquerylist?i='+this.value;
+    
+  });
+});
+
+function updatetasksubmite(){
+  var msg=document.getElementById('taskupdatemsg');
+  $.post('{:U("Task/taskupdate")}',$('#updatetaskform').serialize(),function(data){
+    //console.log(data);
+    if(data==1) location.href="/Admin/Task/tasklist";
+    else if(data==0) msg.innerHTML='数据修改异常';
+    else msg.innerHTML=data;
+  },'text')
+}
+</script>
+
+</body>
+</html>
+

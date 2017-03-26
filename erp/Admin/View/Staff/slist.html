@@ -1,0 +1,57 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">员工管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">员工列表</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          
+<table class="table table-bordered">
+  <caption>员工管理</caption>
+  <thead>
+    <tr>
+      <th class="text-center">姓名</th>
+      <th class="text-center">登陆名</th>
+      <th class="text-center">联系电话</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<volist name="data" id="row">
+    <tr>
+      <td class="text-center">{$row['realname']}</td>
+      <td class="text-center">{$row['loginname']}</td>
+      <td class="text-center">{$row['tel']}</td>
+      <td class="text-center"><button type="button" class="btn btn-xs btn-danger" onclick="javascript:delstaff(this,'{$row["autoid"]}','{$row['realname']}','{$autoid}');">删除员工</button></td>
+    </tr>
+</volist>
+
+  </tbody>
+</table>
+<div style="height:30px;"></div>
+      		</div>
+      	</div>
+      </div>    
+</block>

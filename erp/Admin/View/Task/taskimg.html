@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 内联表单</title>
+	<link rel="stylesheet" href="__CSS__/bootstrap.min.css">  
+	<script src="__JS__/jquery-3.1.1.min.js"></script>
+	<script src="__JS__/bootstrap.min.js"></script>
+</head>
+<body style="overflow:-Scroll;overflow-x:hidden">
+<div style="height:80px;"></div>
+<form class="form-horizontal" role="form" action="{:U('Task/taskimg')}"  enctype="multipart/form-data" method="post">
+  <div class="form-group">
+    <label for="firstname" class="col-xs-3 col-xs-offset-1 control-label">图片：</label>
+    <div class="col-xs-8">
+    	<input type="file" id="firstname" name="photo" />
+    </div>
+  </div>
+
+  <input type="hidden" id='imgautoid' value='{$id}' name='imgautoid'>
+  <input type="hidden" id='imsubmit' value='{$img}'>
+
+  <div class="form-group">
+    <div class="col-xs-4 col-xs-offset-4 ">
+      <button type="submit" class="btn btn-success text-center">提交</button>
+    </div>
+  </div>
+</form>
+
+</body>
+</html>

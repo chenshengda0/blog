@@ -1,0 +1,156 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">店铺管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">添加店铺</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+<form class="form-horizontal" id="updatetaskform" onsubmit="javascript:return false;" style="margin-top: 140px;" role="form">
+        <input type="hidden" name='autoid' value="{$data.autoid}" id='taskautoid'>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="keyword" class="col-sm-5 control-label">关键词：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="keyword" name='keyword' value='{$data.keywords}'>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="price" class="col-sm-5 control-label">商品价格：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="price" name='price' value="{$data.goodsprice}">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="tasktype" class="col-sm-5 control-label">任务类型：</label>
+              <div class="col-sm-7">
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="tasktype" value="0" checked> 自发货
+                  </label>
+                  <label class="checkbox-inline">
+                  <if condition="$data['iscomment'] eq 1">
+                    <input type="radio" name="tasktype" value="1" checked="checked"> FBA
+                  <else /><input type="radio" name="tasktype" value="1"> FBA
+                  </if>
+                    
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="iscomment" class="col-sm-5 control-label">是否留评：</label>
+              <div class="col-sm-7">
+                <div>
+                  <label class="checkbox-inline">
+                    <input type="radio" name="iscomment" value="0" checked> 留评
+                  </label>
+                  <label class="checkbox-inline">
+                  <if condition="$data['iscomment'] eq 1">
+                    <input type="radio" name="iscomment" value="1" checked="checked"> 不留评
+                  <else /><input type="radio" name="iscomment" value="1"> 不留评
+                  </if>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="starttime" class="col-sm-5 control-label">起始时间：</label>
+              <div class="col-sm-7">
+                <input class="form-control" id="starttime" name='starttime' value="{$data.startdate|date='Y-m-d H:i:s',###}">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="totle" class="col-sm-5 control-label">任务总量：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="totle" name='totle' value="{$data.tasktotals}">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5 col-md-offset-1">
+
+            <div class="form-group">
+              <label for="everyday" class="col-sm-5 control-label">每日发布量：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="everyday" name='everyday' value="{$data.everydayquantity}">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-5">
+            
+            <div class="form-group">
+              <label for="comment" class="col-sm-5 control-label">备注信息：</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control" id="comment" name='comment' value="{$data.remark}">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-success" onclick="javascript:updatetasksubmite();">提交</button>     
+            <button type="submit" class="btn btn-success" onclick="javascript:location.href='/Admin/Public/index';">退出</button>
+          </div>
+        </div>
+</form>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <p class="text-center" id="taskupdatemsg" style="color:red;">* 备注为选填项</p>
+        </div>
+      </div>
+      </div>    
+</block>

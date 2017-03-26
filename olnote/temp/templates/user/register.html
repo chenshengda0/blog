@@ -1,0 +1,49 @@
+{% extends "common/bootstrap.html" %}
+{% block content %}
+  <div class="container" style="margin-top: 50px;">
+    <form class="form-inline" action="#" method="post" onsubmit="return false">
+
+       <div class="form-group">
+        <label class="sr-only" for="exampleInputAmount0">Amount (in dollars)</label>
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></div>
+          <input type="text" name="username" class="form-control" maxlength="15" id="exampleInputAmount0" onchange="comusername(this)" placeholder="请输入登录名">
+          <div class="input-group-addon" id="username" style="width:50%;" >字母开头，6-15位字符</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputAmount1">Amount (in dollars)</label>
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+          <input type="password" name="password0" class="form-control" id="exampleInputAmount1" placeholder="请输入密码"  onchange="compassword(this)"  maxlength="15">
+          <div class="input-group-addon" id="password0" style="width:50%;">6到15位任意字符</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputAmount2">Amount (in dollars)</label>
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-th"></span></div>
+          <input type="password" name="password1" class="form-control" id="exampleInputAmount2" placeholder="再次输入密码"  onchange="comupassword1(this)" maxlength="15">
+          <div class="input-group-addon" id="password1" style="width:50%;">两次输入的密码需一致</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="sr-only" for="exampleInputAmount3">Amount (in dollars)</label>
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+          <input type="text" name="nickname" class="form-control" id="exampleInputAmount3" placeholder="请输入昵称" maxlength="8"  onchange="comunickname(this)">
+          <div class="input-group-addon" style="width:50%;" id="nickname">3-8位中文字符</div>
+        </div>
+      </div>
+      <p class="text-center">
+        <button type="submit" class="btn btn-primary" onclick="javascript:sub(this);">注册</button>
+      </p>
+      <p class="text-center" id="loginmsg" style="display: none;">本窗口将在<span id="timemsg" style="color:red;">2</span>秒后自动关闭</p>
+      
+    </form>
+  </div>
+  
+{% endblock %}

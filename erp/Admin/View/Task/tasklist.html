@@ -1,0 +1,127 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">任务管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">任务列表</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-12">
+          <div style="height:10px;"></div>
+<div class="row">
+  <div class="col-sm-2">
+    <div class="form-group">
+              <div class="col-sm-12">
+                <select class="form-control" id="taskcountrys">
+                <option value='0'>请选择国家</option>
+                <volist name="data.country" id='row' key='k'>  
+                      <option value='{$key}'>{$row}</option>
+                </volist>
+                </select>
+              </div>
+            </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+              <div class="col-sm-12">
+                <select class="form-control" id="taskusers">
+                      <option value='0'>请选择客户</option>
+                </select>
+              </div>
+            </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+              <div class="col-sm-12">
+                <select class="form-control" id="taskshops">
+                      <option value='0'>请选择店铺</option>
+                </select>
+              </div>
+            </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+              <div class="col-sm-12">
+                <select class="form-control" id="taskgoodss">
+                      <option value='0'>请选择商品</option>
+                </select>
+              </div>
+            </div>
+  </div>
+  <div class="col-md-2 col-md-offset-2">
+  <div class="form-group">
+    <div class="col-sm-10">
+           <input type="text" class="form-control" id="taskgoodskeyword" placeholder="请输入商品名" AUTOCOMPLETE="off">
+           <div id='dropdownlist'>
+           </div>
+    </div>
+  </div>
+</div>
+<form action="/Admin/Task/tasklist" method="post" id='searchtaskform'>
+  <input type="hidden" value="" name='autoid' id='searchgoodsid'>
+</form>
+</div>
+<div style="height:10px;"></div>
+<table class="table table-bordered">
+
+
+  <thead>
+    <tr>
+      <th class="text-center">序号</th>
+      <th class="text-center">商品图片</th>
+      <th class="text-center">商品价格</th>
+      <th class="text-center">起始时间</th>
+      <th class="text-center">任务总量</th>
+      <th class="text-center">每日发布</th>
+      <th class="text-center">任务状态</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+<volist name='data.task.list' id='row' key='k'>
+<tr style="height:60px;">
+      <td class="text-center" style="line-height: 60px;color:red;">{$k}</td>
+      <td class="text-center" style="line-height: 60px;"><a href="/Admin/Task/tasklistcont?i={$row.autoid}"><img src="{$row.goodspic}" style="height:80px;width:80px;" class="img-circle"></a></td>
+      <td class="text-center" style="line-height: 60px;color:green;">{$row.goodsprice}</td>
+      <td class="text-center" style="line-height: 60px;color:red;">{$row.startdate|date='Y-m-d H:i:s',###}</td>
+      <td class="text-center" style="line-height: 60px;color:red;">{$row.tasktotals}</td>
+      <td class="text-center" style="line-height: 60px;color:blue;">{$row.everydayquantity}</td>
+      <td class="text-center" style="line-height: 60px;color:red;">
+        <if condition="$row['isstat'] eq 0">
+          正常
+        <else /> 已完成
+        </if>
+        </td>
+      <td class="text-center" style="line-height: 60px;"><div style="height:30px;"></div><a type="button" class="btn btn-success btn-xs" href="/Admin/Task/taskupdate?i={$key}">修改任务</a><button type="button" class="btn btn-danger btn-xs" onclick="javascript:deltask('{$key}');">软删除任务</button></td>
+</tr>
+</volist>
+  </tbody>
+</table>
+<div class="text-center">{$data.task.page}</div>
+<div style="height:30px;"></div>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

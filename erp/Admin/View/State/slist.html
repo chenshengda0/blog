@@ -1,0 +1,54 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">国家管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">国家列表</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          
+<table class="table table-bordered">
+  <caption>国家列表</caption>
+  <thead>
+    <tr>
+      <th class="text-center">序号</th>
+      <th class="text-center">国家名</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<volist name="data" id="row" key='k'>
+  <tr>
+      <td class="text-center">{$k}</td>
+      <td class="text-center">{$row}</td>
+      <td class="text-center"><a type="button" class="btn btn-success btn-xs" href="/Admin/State/countryupdate?i={$key}">修改国家</a><button type="button" class="btn btn-danger btn-xs" onclick="javascript:delcountry('{$key}');">删除国家</button></td>
+    </tr>
+</volist>
+  </tbody>
+</table>
+<div style="height:30px;"></div>
+      		</div>
+      	</div>
+      </div>    
+</block>

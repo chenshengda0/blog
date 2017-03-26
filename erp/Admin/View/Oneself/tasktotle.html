@@ -1,0 +1,101 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">任务管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">接收任务</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+          
+<table class="table table-bordered">
+  <caption>
+<div class="container">
+  <div class="row">
+  
+
+
+<div class="col-md-3">
+      <div class="form-group">
+    <select class="form-control" id="selectnumber">
+      <option value="0">请选择批量接收</option>
+      <option value="30">批量接收30条</option>
+      <option value="50">批量接收50条</option>
+      <option value="80">批量接收80条</option>
+    </select>
+  </div>
+  </div>
+
+  <div class="col-md-3 col-md-offset-6">
+    <div class="form-group">
+    <div class="col-sm-10">
+           <input type="text" class="form-control" id="oneselfkeyword" placeholder="请输入商店名" AUTOCOMPLETE="off">
+           <div id='dropdownlist'>
+           </div>
+    </div>
+  </div>
+</div>
+<form action="/Admin/Oneself/tasktotle" method="post" id='seachoneselfform'>
+  <input type="hidden" value="" name='oneselfautoid' id='searchgoodsid'>
+</form>
+
+    
+    </div>
+  </div>
+</div>
+  </caption>
+
+
+  <thead>
+    <tr>
+      <th class="text-center">序号</th>
+      <th class="text-center">店铺</th>
+      <th class="text-center">商品</th>
+      <th class="text-center">发布时间</th>
+      <th class="text-center">状态</th>
+      <th class="text-center">接收率</th>
+      <th class="text-center">完成率</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+<volist name='data.list' id='row' key='k'>
+<tr>
+      <td class="text-center" style="height:100px;line-height: 100px;">{$k}</td>
+      <td class="text-center" style="height:100px;line-height: 100px;color: green;">{$row.shopname}</td>
+      <td class="text-center"><a href="/Admin/Task/tasklistcont?i={$row.taskid}"><img src="{$row.img}" style="width:100px;height:100px;" alt=""></a></td>
+       <td class="text-center" style="height:100px;line-height: 100px;color:red;">{$row.onetime}</td>
+      <td class="text-center" style="height:100px;line-height: 100px;color:red;">{$row.status}</td>
+      <td class="text-center" style="height:100px;line-height: 100px;color: red;">{$row.acceptance}</td>
+      <td class="text-center" style="height:100px;line-height: 100px;color: green;">{$row.done}</td>
+      <td class="text-center"><div style="height:38px;"></div><a type="button" onclick="javascript:oneselfnumber({$row.autoid});" class="btn btn-success btn-xs">接收任务</a></td>
+</tr>
+</volist>
+  </tbody>
+</table>
+<div class="text-center">{$data.page}</div>
+<div style="height:30px;"></div>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

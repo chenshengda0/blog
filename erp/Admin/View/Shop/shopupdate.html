@@ -1,0 +1,68 @@
+<extend name="./Public/html/index.html" />
+<block name="adminnav">
+<?php foreach($tree as $key => $value): ?>
+        <li>
+          <h4 class="M1"><span></span>{$value.title}</h4>
+          <div class="list-item none">
+          <?php foreach($value['_data'] as $k=>$v):?>
+            <a href='/{$v.name}'>{$v.title}</a>
+          <?php endforeach ?>
+          </div>
+        </li>
+<?php endforeach ?>
+</block> 
+<block name="mianbaoxie">
+          <ul>
+              <!-- <li><img src="__IMG__/home.png"></li> -->
+                <li style="margin-left:25px;">您当前的位置：</li>
+                <li><a href="#">店铺管理</a></li>
+                <li><a href="#">></a></li>
+                <li><a href="#">修改店铺</a></li>
+            </ul>
+</block>  
+
+
+<block name='neirong'>
+      <div class="contain">
+      	<div class="row">
+      		<div class="col-md-10 col-md-offset-1">
+
+      		<div style="height:50px;"></div>
+          
+<form class="form-horizontal" id="addshopform" onsubmit="javascript:return false;" style="margin-top: 40px;" role="form">
+<input type="hidden" value="{$data.autoid}" name="shopid">
+
+  <div class="form-group">
+    <label for="srealname" class="col-sm-2 control-label">店铺名称：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="srealname" name='shopname' value="{$data.shopname}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="srealname" class="col-sm-2 control-label">店铺链接：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="srealname" name="shopurl" value="{$data.shopurl}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="srealname" class="col-sm-2 control-label">备注信息：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="srealname" name='shopcommon' value="{$data.remark}">
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-5 col-sm-2">
+      <button type="submit" class="btn btn-success" onclick="javascript:updateshopsubmite();">提交</button>
+      <button type="submit" class="btn btn-success" onclick="javascript:logoutuser();">退出</button>
+    </div>
+  </div>
+</form>
+<p class="text-center" id="shopaddmsg" style="color:red;">* 店铺链接请谨慎填写,可以直接跳转,备注为选填项</p>
+
+      		</div>
+      	</div>
+      </div>    
+</block>

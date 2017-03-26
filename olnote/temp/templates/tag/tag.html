@@ -1,0 +1,105 @@
+{% extends 'common/base.html' %}
+{% block nav %}
+	{% for v in title %}
+		 	{% if not v.son %}
+		 		<li class="active"><a href="#">{{ v.name }} <span class="sr-only">(current)</span></a></li>
+		 	{% else %}
+		 		<li class="dropdown">
+				          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ v.name }} <span class="caret"></span></a>
+				          <ul class="dropdown-menu">
+						{% for k in v.son %}
+				            	<li><a href="{{ k.href }}">{{ k.name }}</a></li>
+					        {% if not forloop.last %}
+					            <li role="separator" class="divider"></li>
+							{% endif %}
+						{% endfor %}
+				          </ul>
+				        </li>
+		    {% endif %}
+        {% endfor %}
+{% endblock %}
+
+{% block login %}
+	{% if login %}
+		<li class="active"><a><span style="color:red;">{{ login.nickname }}</span>，欢迎你！</a></li>
+		<li>
+			<form action="" method="post" >
+				<input type="hidden" name="id" id="id" value="{{ login.id }}">
+				<input type="hidden" name="username" id="username" value="{{ login.username }}">
+				<input type="hidden" name="nickname" id="nickname" value="{{ login.nickname }}">
+				<input type="hidden" name="ip" id="ip" value="{{ login.ip }}">
+			</form>
+		</li>
+        <li><a onclick="javascript:userforgrt(this);">注销</a></li>
+        {% else %}
+        <li><a onclick="javascript:userregister(this);">注册</a></li>
+        <li><a onclick="javascript:userlogin(this);">登陆</a></li>
+ 	{% endif %}
+        
+{% endblock %}
+
+{% block tag %}
+	{% for v in tag %}
+		&nbsp;&nbsp;<span class="glyphicon glyphicon-th"></span>
+		{% for t in v %}
+	            <div class="btn-group" role="group" aria-label="...">
+	              <a type="button" href="{{t.href}}" class="btn btn-default">{{ t.name }}</a>   
+	            </div>
+	            {% if forloop.last %}
+					<br>
+				{% endif %}
+	    {% endfor %}
+	{% endfor %}
+{% endblock %}
+
+{% block article %}
+	{% for art in article_new %}
+	          <p class="">&nbsp;&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<a href="{{ art.0.column }}">{{ art.0.title }}</a></p>
+	{% endfor %}
+{% endblock %}
+
+{% block tuijian %}
+    {% for art in article_two %}
+	          <p class="">&nbsp;&nbsp;<span class="glyphicon glyphicon-circle-arrow-right"></span>&nbsp;&nbsp;<a href="{{ art.0.column }}">{{ art.0.title }}</a></p>
+	{% endfor %}
+{% endblock %}
+
+{% block link %}
+	{% for i in link %}
+          <a href="{{ i.href }}" target="_blank">{{ i.name }}</a>
+	{% endfor %}
+{% endblock %}
+
+{% block breadcrumb %}
+	{% for i in main %}
+            <li><a href="{{ i.href }}">{{ i.name }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block navtag %}
+{% for i in tag_list %}
+  <a type="button" href="{{ i.1.2 }}" class="btn btn-default">{{ i.1.1 }}</a>
+ {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+{% for value in tags %}
+<div class="col-md-3 col-xs-6 posi">
+              <div class="block-list">
+                <a href="{{ value.column }}"><img src="{{ value.img.0.name }}" class="content-img"></a>
+                <div class="title">{{ value.title|truncatechars_html:"10" }}</div>
+                <div class="date">{{ value.pub_date }}</div>
+                <div class="tag">
+                <center>
+                  <div class="btn-group" role="group" aria-label="...">
+                  {% for i in value.tag %}
+                    <a type="button" class="btn btn-primary btn-xs" href="{{ i.href }}">{{ i.name }}</a>
+                   {% endfor %}
+                  </div>
+                  </center>
+                </div>
+              </div>
+            </div>
+{% endfor %}
+{% endblock %}
