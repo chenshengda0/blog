@@ -1,0 +1,8 @@
+shell 脚本示例
+一.文件名后缀不限，可以使用forkingmaxin_test.cmd
+#!/bin/bash
+python forkingmaxin_test.py
+二.修改文件权限
+chmod [who] [ + | - | = ][wrx] ./forkingmaxin_test.cmd
+三.执行文件
+./forkingmaxin_test.cmd
